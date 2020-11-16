@@ -44,3 +44,4 @@ STEP 7: To see the working of the project, go to the localhost:8000 homepage or 
 Note :
     To view the album go to "album/" url.
     To view the upload option go to "upload" url.
+    Also , create a media folder in the root . 
