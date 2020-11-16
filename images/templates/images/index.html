@@ -1,0 +1,9 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+    <div>
+        <h1>Welcome to Gallery</h1> 
+        <a href="{% url 'images:album' %}">Go To Album</a>
+        <br>
+        <a href="{% url 'images:upload' %}">Upload Pictures with Tags</a>
+    </div>
+{% endblock %}

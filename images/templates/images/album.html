@@ -1,0 +1,29 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+
+<div>
+{% for image in imagetags %}
+    <a href="{% url 'images:image_id' id=image.id %}">
+    <img src="{{ image.picture.url }}" style="height: 150px; width: 200px; padding: 15px;" >
+    </a>
+{% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if imagetags.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ imagetags.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ imagetags.number }} of {{ imagetags.paginator.num_pages }}.
+        </span>
+
+        {% if imagetags.has_next %}
+            <a href="?page={{ imagetags.next_page_number }}">next</a>
+            <a href="?page={{ imagetags.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

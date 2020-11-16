@@ -1,0 +1,32 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<div style="width: auto; height: auto;">
+    <img id="image" src="{{ imagetag.picture.url }}" style="height: 500px; width: 500px;">
+    <p> Related Tags:
+        {% for tag in imagetag.tag.all %}
+        <br>
+        {{ tag }}
+        {% endfor %}
+    </p>
+</div>
+
+<div style="padding: 30px;">
+    <button class="btn btn-primary" id="clockwise">Rotate Clockwise</button>
+    <button class="btn btn-primary" id="initial">Normal</button>
+    <button class="btn btn-primary" id="anti-clockwise">Rotate Anti-Clockwise</button>
+</div>
+
+<script>
+    img = document.getElementById('image')
+    document.getElementById('clockwise').onclick = function(){
+        document.getElementById('image').style.transform = "rotate(90deg)";
+    }
+    document.getElementById('initial').onclick = function(){
+        document.getElementById('image').style.transform = "none";
+    }
+    document.getElementById('anti-clockwise').onclick = function(){
+        document.getElementById('image').style.transform = "rotate(-90deg)";
+    }
+</script>
+
+{% endblock %}
