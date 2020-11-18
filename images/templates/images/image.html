@@ -14,6 +14,8 @@
     <button class="btn btn-primary" id="clockwise">Rotate Clockwise</button>
     <button class="btn btn-primary" id="initial">Normal</button>
     <button class="btn btn-primary" id="anti-clockwise">Rotate Anti-Clockwise</button>
+    <br>
+    <h2 id='message'></h2>
 </div>
 
 <script>
@@ -27,6 +29,60 @@
     document.getElementById('anti-clockwise').onclick = function(){
         document.getElementById('image').style.transform = "rotate(-90deg)";
     }
+
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+    $('#clockwise').click(function() {    
+    $.ajax({
+        url: "/image/{{ imagetag.id }}/",
+        headers: {'X-CSRFToken': csrftoken},
+        method: 'POST', 
+        data: {
+            clockwise: true, // data passed to the function
+            click: true
+        },
+        success: function (json) {        
+            $('#message').html("<h5>Successfully saved</h5>"); 
+            console.log(json);
+            location.reload(true);// hard refresh inorder to display the rotated image
+            console.log("success");
+        },
+
+    });
+    });
+    $('#anti-clockwise').click(function() {    
+    $.ajax({
+        url: "/image/{{ imagetag.id }}/",
+        headers: {'X-CSRFToken': csrftoken},
+        method: 'POST', 
+        data: {
+            anticlockwise: true, // data passes to the function
+            click: true
+        },
+        success: function (json) {        
+            $('#message').html("<h5>Successfully saved AntiClockwise</h5>");
+            console.log(json);
+            location.reload(true); // hard refresh inorder to display the rotated image 
+            console.log("success");
+        },
+
+    });
+    });
+
 </script>
 
 {% endblock %}
